@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Boilerplate code for App.tsx */
+.logo:hover {
+    filter: drop-shadow(0 0 2em #645cff);
+}
+
+.logo.react {
+    animation: spin 15s infinite linear;
+}
+
+.logo.react:hover {
+    filter: drop-shadow(0 0 2em #61dafb);
+}
+
+.logo.tailwind:hover {
+    filter: drop-shadow(0 0 2em #319795);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
