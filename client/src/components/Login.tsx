@@ -31,6 +31,7 @@ export default function Login() {
                 </div>
                 <Button type="submit" className="w-[20rem] mt-2">Bejelentkezés</Button>
             </form>
+            <p className="text-gray-400 text-sm mt-4">Még nincs fiókja? <a className="text-primary underline" href="/signup">Regisztáció</a></p>
         </div>
     )
 }
