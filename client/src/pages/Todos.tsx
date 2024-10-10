@@ -8,7 +8,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-  
+
 import {
     Dialog,
     DialogContent,
@@ -17,7 +17,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-  
+
 
 import {
     Table,
@@ -29,10 +29,8 @@ import {
 } from "@/components/ui/table"
 import { CircleUserRound, Plus } from "lucide-react"
 import FinishingTodo from "@/components/FinishingTodo"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
-   
+import CreateTodo from "@/components/CreateTodo"
+
 const invoices = [
     {
       invoice: "INV001",
@@ -79,12 +77,11 @@ const invoices = [
 ]
 
 export default function Todos() {
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
+
 
   return (
-    <div className="w-[75%] min-h-screen bg-background mx-auto">
-        <section className="flex justify-between items-end mt-52 mb-6 mx-2">
+    <div className="w-[95%] sm:w-[85%] md:w-[75%] h-screen bg-background mx-auto">
+        <section className="flex justify-between items-end pt-52 mb-6 mx-2">
             <div>
                 <h1 className="text-3xl font-semibold">TODO Listád</h1>
                 <p className="text-gray-400">Itt láthatod a teendőidet</p>
@@ -101,23 +98,9 @@ export default function Todos() {
                             Itt hozhat létre új teendőt.
                         </DialogDescription>
                         </DialogHeader>
-                        <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="name">
-                            Cím
-                            </Label>
-                            <Input required={true} id="name" value={title} onChange={(e) => setTitle(e.target.value)} className="col-span-3" />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="username">
-                            Rövid leírás
-                            </Label>
-                            <Input required={true} id="username" value={description} onChange={(e) => setDescription(e.target.value)} className="col-span-3" />
-                        </div>
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Button onClick={() => console.log(title, description)}>Létrehozás</Button>
-                        </div>
+                        
+                        {/* create todo component */}
+                        <CreateTodo />
                     </DialogContent>
                 </Dialog>
 

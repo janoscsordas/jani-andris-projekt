@@ -4,7 +4,7 @@ import { addTodo, deleteTodo, getTodos, updateTodo } from "../controllers/todoCo
 
 const todosRouter = express.Router()
 
-todosRouter.use(authMiddleware)
+// todosRouter.use(authMiddleware)
 
 todosRouter.get("/", getTodos)
 
