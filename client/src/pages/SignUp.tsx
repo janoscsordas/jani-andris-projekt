@@ -5,7 +5,7 @@ export default function SignUp() {
     return (
         <div className="w-full min-h-screen flex flex-col justify-center items-center bg-background">
             <h1 className="text-3xl font-bold text-white text-center mb-1">Fiók létrehozása</h1>
-            <p className="text-gray-400 text-sm mb-4">A regisztációhoz hozzon létre felhasználó nevet, jelszót és adja meg az email címét</p>
+            <p className="text-gray-400 text-sm mb-4">A regisztációhoz adja meg a felhasználó nevét, email címét és egy jelszót</p>
             <form action="">
                 <Input className="w-[20rem] mb-2" type="text" placeholder="Felhasználó név" required={true} />
                 <Input className="w-[20rem] mb-2" type="email" placeholder="Email cím" required={true} />
