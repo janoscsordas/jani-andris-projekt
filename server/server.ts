@@ -2,6 +2,7 @@ import express from 'express'
 import userRouter from './routes/user'
 
 import mongoose from 'mongoose'
+import todosRouter from './routes/todo'
 
 const PORT = 3000
 
@@ -16,6 +17,8 @@ app.use((req, res, next) => {
 })
 
 app.use('/user', userRouter)
+
+app.use('/todos', todosRouter)
 
 // connecting to the database
 mongoose.connect(process.env.CONN_STRING!)

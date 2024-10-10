@@ -6,7 +6,3 @@ export async function createJWTToken(user: IUser) {
         expiresIn: "7d",
     })
 }
-
-export async function verifyJWTToken(token: string) {
-    return jwt.verify(token, process.env.JWT_SECRET!)
-}
