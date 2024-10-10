@@ -28,7 +28,7 @@ userSchema.statics.login = async function(email, password) {
         throw Error("A megadott email címmel nincs regisztrálva felhasználó!")
     }
 
-    const match = await Bun.password.verify(user.password, password)
+    const match = await Bun.password.verify(password, user.password)
 
     if (!match) {
         throw Error("A megadott jelszó helytelen!")
@@ -39,13 +39,19 @@ userSchema.statics.login = async function(email, password) {
 
 userSchema.statics.register = async function(name, email, password) {
     if (!name || !email || !password) {
-        throw Error("Nem adta meg a nevét, az email-t, a jelszét!")
+        throw Error("Nem adott meg nevet, email-t, vagy jelszót!")
     }
 
-    const user = await User.findOne({ email: email })
+    const emailExists = await User.findOne({ email: email })
 
-    if (user) {
+    if (emailExists) {
         throw Error("A megadott email címmel már van regisztrálva felhasználó!")
+    }
+
+    const userNameExists = await User.findOne({ name: name })
+
+    if (userNameExists) {
+        throw Error("A megadott felhasználónévvel már regisztráltak!")
     }
 
     const hashedPassword = await Bun.password.hash(password)

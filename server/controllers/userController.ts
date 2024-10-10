@@ -17,7 +17,7 @@ export const loginUser = async (req: Request, res: Response) => {
         // create a token
         const token = await createJWTToken(user)
 
-        res.status(200).json({ user, token })
+        res.status(200).json({ id: user._id, email: user.email, name: user.name, token })
     } catch (error: any) {
         res.status(400).json({ error: error.message })
     }
@@ -28,7 +28,7 @@ export const registerUser = async (req: Request, res: Response) => {
         const { name, email, password } = await req.body
 
         if (!name || !email || !password) {
-            throw Error("Nem adta meg a nevét, az email-t, a jelszót!")
+            throw Error("Nem adott meg nevet, email-t, vagy jelszót!")
         }
 
         const user = await User.register(name, email, password)

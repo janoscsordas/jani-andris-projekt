@@ -10,7 +10,7 @@ import { Ellipsis } from "lucide-react"
 
 
 
-export default function TableActions() {
+export default function TableActions({ id }: { id: string }) {
   return (
     <div>
         <DropdownMenu>

@@ -8,7 +8,7 @@ import type { AuthenticatedRequest } from "../middlewares/authMiddleware";
 export const getTodos = async (req: AuthenticatedRequest, res: Response) => {
     const user_id = req.user?._id
 
-    const todos = await Todo.find({ user_id }).sort({ createdAt: -1 });
+    const todos = await Todo.find({ userId: user_id }).sort({ createdAt: -1 });
 
     if (!todos) {
         res.status(400).json({ error: "Nincsenek todo-k!" });
@@ -19,14 +19,14 @@ export const getTodos = async (req: AuthenticatedRequest, res: Response) => {
 }
 
 export const addTodo = async (req: Request, res: Response) => {
-    const { title, description, completed }: { title: string, description: string, completed: boolean } = await req.body;
+    const { userId, title, description, completed }: { userId: string, title: string, description: string, completed: boolean } = await req.body;
 
-    if (!title || !description || typeof completed === "undefined") {
+    if (!userId || !title || !description || typeof completed === "undefined") {
         res.status(400).json({ error: "Nem adott meg minden adatot a todo-hoz!" });
         return
     }
 
-    const todo = await Todo.create({ title, description, completed });
+    const todo = await Todo.create({ userId, title, description, completed });
 
     if (!todo) {
         res.status(400).json({ error: "Nem sikerült hozzáadni a todo-t!" });
