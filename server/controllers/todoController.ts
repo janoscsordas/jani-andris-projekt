@@ -2,9 +2,13 @@ import type { Request, Response } from "express";
 import { Todo } from "../models/todoModel";
 import mongoose from "mongoose";
 
+import type { AuthenticatedRequest } from "../middlewares/authMiddleware";
 
-export const getTodos = async (req: Request, res: Response) => {
-    const todos = await Todo.find();
+
+export const getTodos = async (req: AuthenticatedRequest, res: Response) => {
+    const user_id = req.user?._id
+
+    const todos = await Todo.find({ user_id }).sort({ createdAt: -1 });
 
     if (!todos) {
         res.status(400).json({ error: "Nincsenek todo-k!" });
