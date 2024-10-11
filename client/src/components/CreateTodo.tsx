@@ -49,10 +49,6 @@ export default function CreateTodo() {
             setDescription("")
             setIsPending(false)
             dispatch({ type: "ADD_TODO", payload: json.todo })
-
-            setTimeout(() => {
-                setSuccess("")
-            }, 4000)
         }
     }
 

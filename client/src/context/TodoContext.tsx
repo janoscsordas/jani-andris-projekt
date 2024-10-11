@@ -36,7 +36,7 @@ export const todosReducer = (state: TodoState, action: TodoAction): TodoState =>
         };
       case "REMOVE_TODO":
         return {
-          todos: state.todos.filter(todo => todo.id !== action.payload!.id),
+          todos: state.todos.filter(todo => todo.id !== action.payload!),
         };
       case "TOGGLE_TODO":
         return {
