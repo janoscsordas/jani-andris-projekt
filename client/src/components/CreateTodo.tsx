@@ -13,9 +13,12 @@ export default function CreateTodo() {
     const [description, setDescription] = useState("")
     const [isPending, setIsPending] = useState(false)
     const [error, setError] = useState("")
+    const [success, setSuccess] = useState("")
 
-    const handleTodoCreation = async () => {
+    const handleTodoCreation = async (e: React.FormEvent) => {
+        e.preventDefault()
         setIsPending(true)
+        setSuccess("")
 
         if (!authState.user) {
             setIsPending(false)
@@ -40,53 +43,62 @@ export default function CreateTodo() {
         }
 
         if (json) {
+            setSuccess("Sikeres létrehozás!")
+
             setTitle("")
             setDescription("")
             setIsPending(false)
             dispatch({ type: "ADD_TODO", payload: json.todo })
+
+            setTimeout(() => {
+                setSuccess("")
+            }, 4000)
         }
     }
 
     return (
         <>
+            {success && <p className="text-green-500">{success}</p>}
             {error && <p className="text-red-500">{error}</p>}
-            <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="title">
-                    Cím
-                </Label>
-                <Input
-                    required={true}
-                    name="title"
-                    id="title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    disabled={isPending}
-                    className="col-span-3"
-                />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="description">
-                    Rövid leírás
-                </Label>
-                <Input
-                    required={true}
-                    name="description"
-                    id="description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    disabled={isPending}
-                    className="col-span-3"
-                />
-            </div>
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-                <Button
-                    onClick={() => handleTodoCreation()}
-                    disabled={isPending}>
-                        Létrehozás
-                </Button>
-            </div>
+            <form onSubmit={handleTodoCreation}>
+                <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="title">
+                        Cím
+                    </Label>
+                    <Input
+                        required={true}
+                        name="title"
+                        id="title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        disabled={isPending}
+                        className="col-span-3"
+                    />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="description">
+                        Rövid leírás
+                    </Label>
+                    <Input
+                        required={true}
+                        name="description"
+                        id="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        disabled={isPending}
+                        className="col-span-3"
+                    />
+                </div>
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                    <Button
+                        type='submit'
+                        disabled={isPending}>
+                            Létrehozás
+                    </Button>
+                </div>
+            </form>
         </>
     )
 }

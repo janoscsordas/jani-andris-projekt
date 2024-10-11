@@ -42,10 +42,6 @@ export const todosReducer = (state: TodoState, action: TodoAction): TodoState =>
         return {
           todos: state.todos.map(todo => todo.id === action.payload!.id ? {...todo, completed: !todo.completed} : todo),
         };
-      case "PATCH_TODO":
-        return {
-          todos: state.todos.map(todo => todo.id === action.payload!.id ? action.payload! : todo),
-        };
       default:
         return state;
     }

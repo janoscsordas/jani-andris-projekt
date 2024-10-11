@@ -6,7 +6,7 @@ import type { AuthenticatedRequest } from "../middlewares/authMiddleware";
 
 
 export const getTodos = async (req: AuthenticatedRequest, res: Response) => {
-    const user_id = req.user?._id
+    const user_id = req.headers['userid']
 
     const todos = await Todo.find({ userId: user_id }).sort({ createdAt: -1 });
 
@@ -38,13 +38,14 @@ export const addTodo = async (req: Request, res: Response) => {
 
 export const updateTodo = async (req: Request, res: Response) => {
     const { id } = req.params;
+    const { completed } = await req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         res.status(404).json({error: 'Nincs ilyen TODO!'});
         return
     }
 
-    const todo = await Todo.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
+    const todo = await Todo.findOneAndUpdate({ _id: id }, { completed }, { new: true });
 
     if (!todo) {
         res.status(400).json({ error: "Nem sikerült frissíteni a todo-t!" });

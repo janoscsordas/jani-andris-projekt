@@ -5,14 +5,13 @@ import Home from "@/pages/Home.tsx"
 import Todos from "@/pages/Todos"
 import NotFound from "@/pages/NotFound"
 import { useAuthContext } from "./hooks/useAuthContext"
-import { TodosContextProvider } from "./context/TodoContext"
 
 
 export default function App() {
     const { authState } = useAuthContext()
 
     return (
-        <main className="font-mono">
+        <main className="font-mono will-change-auto">
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Home />} />
