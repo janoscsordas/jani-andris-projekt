@@ -1,21 +1,15 @@
 import { Checkbox } from "@/components/ui/checkbox"
 import { useAuthContext } from "@/hooks/useAuthContext"
 import { useTodosContext } from "@/hooks/useTodosContext"
-import { useState } from "react"
-
 
 export default function FinishingTodo({ completed, id }: { completed: boolean, id: string }) {
-    const { dispatch } = useTodosContext()
     const { authState } = useAuthContext()
-
-    // Local state for optimistic UI updates
-    const [localCompleted, setLocalCompleted] = useState(completed)
+    const { dispatch } = useTodosContext()
 
     const handleToggle = async (id: string) => {
-        const newCompleted = !localCompleted
-        // update local state
-        setLocalCompleted(newCompleted)
+        const newCompleted = !completed
 
+        // Sync with the backend
         const response = await fetch(`http://localhost:3000/todos/${id}`, {
             method: "PATCH",
             headers: {
@@ -29,17 +23,15 @@ export default function FinishingTodo({ completed, id }: { completed: boolean, i
 
         if (response.ok) {
             dispatch({ type: "TOGGLE_TODO", payload: json.todo._id })
-        } else {
-            setLocalCompleted(completed)
         }
     }
 
     return (
         <div className="flex items-center">
             <Checkbox
-                checked={localCompleted} // Use local state for instant UI feedback
+                checked={completed} // Reflect the `completed` state passed from parent
                 id={id}
-                onCheckedChange={() => handleToggle(id)}
+                onCheckedChange={() => handleToggle(id)} // Optimistic UI first, then backend sync
             />
         </div>
     )

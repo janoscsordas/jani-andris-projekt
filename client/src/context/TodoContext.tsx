@@ -8,7 +8,7 @@ type TodoContextProps = {
 export const TodosContext = createContext({} as TodoContextProps);
 
 type Todo = {
-    id: string;
+    _id: string;
     title: string;
     description: string;
     completed: boolean;
@@ -36,11 +36,14 @@ export const todosReducer = (state: TodoState, action: TodoAction): TodoState =>
         };
       case "REMOVE_TODO":
         return {
-          todos: state.todos.filter(todo => todo.id !== action.payload!),
+          todos: state.todos.filter(todo => todo._id !== action.payload!),
         };
       case "TOGGLE_TODO":
         return {
-          todos: state.todos.map(todo => todo.id === action.payload!.id ? {...todo, completed: !todo.completed} : todo),
+            ...state,
+            todos: state.todos.map((todo) =>
+                todo._id === action.payload ? { ...todo, completed: !todo.completed } : todo
+            ),
         };
       default:
         return state;

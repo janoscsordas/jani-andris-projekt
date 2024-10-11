@@ -24,10 +24,10 @@ export default function TableActions({ id }: { id: string }) {
             }
         })
 
-        // const json = await response.json()
+        const json = await response.json()
 
         if (response.ok) {
-            dispatch({ type: "REMOVE_TODO", payload: id })
+            dispatch({ type: "REMOVE_TODO", payload: json.todo._id })
         }
     }
 
