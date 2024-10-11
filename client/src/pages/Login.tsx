@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { useLogin } from "@/hooks/useLogin"
 import { EyeClosedIcon, EyeIcon } from "lucide-react"
-import { useNavigate } from "react-router-dom"
 
 export default function Login() {
     const [passwordIsSeen, setPasswordIsSeen] = useState(false)
@@ -11,7 +10,6 @@ export default function Login() {
     const [password, setPassword] = useState("")
 
     const { login, error, isLoading } = useLogin()
-    const navigate = useNavigate()
 
     const handlePasswordVisibility = () => {
         setPasswordIsSeen(!passwordIsSeen)
